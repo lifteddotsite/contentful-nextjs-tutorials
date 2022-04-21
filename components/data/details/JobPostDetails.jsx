@@ -212,16 +212,18 @@ const JobPostDetails = ({ jobPost, relatedJobPosts }) => {
           <hr className='my-6 border-t border-slate-200' />
 
           {/* Related Jobs */}
-          <div>
-            <h2 className='text-xl leading-snug text-slate-800 font-bold mb-6'>
-              Related Jobs
-            </h2>
-            <div className='space-y-2 mt-6'>
-              {relatedJobPosts.map((jobPost) => {
-                return <JobPostCard key={item.id} jobPost={jobPost} />;
-              })}
+          {relatedJobPosts.length ? (
+            <div>
+              <h2 className='text-xl leading-snug text-slate-800 font-bold mb-6'>
+                Related Jobs
+              </h2>
+              <div className='space-y-2 mt-6'>
+                {relatedJobPosts.map((jobPost) => {
+                  return <JobPostCard key={item.id} jobPost={jobPost} />;
+                })}
+              </div>
             </div>
-          </div>
+          ) : null}
         </div>
 
         {/* Sidebar */}

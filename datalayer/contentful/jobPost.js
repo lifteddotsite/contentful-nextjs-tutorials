@@ -2,10 +2,10 @@ import { client } from './client';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import date from 'date-and-time';
 
-function parseDate(dateStr) {
+const dateReducer = (dateStr) => {
   const dateObj = date.parse(dateStr.split('T')[0], 'YYYY-MM-DD');
   return dateObj.toDateString();
-}
+};
 
 const imageReducer = (imageField) => {
   return {
@@ -38,8 +38,8 @@ const jobPostReducer = (rawJobPost) => {
   jobPost.tags = tagsReducer(rawJobPost.metadata.tags);
   jobPost.id = rawJobPost.sys.id;
   jobPost.locale = rawJobPost.sys.locale;
-  jobPost.createdAt = parseDate(rawJobPost.sys.createdAt);
-  jobPost.updatedAt = parseDate(rawJobPost.sys.updatedAt);
+  jobPost.createdAt = dateReducer(rawJobPost.sys.createdAt);
+  jobPost.updatedAt = dateReducer(rawJobPost.sys.updatedAt);
 
   jobPost.companyLogo = imageReducer(rawJobPost.fields.companyLogo);
 
