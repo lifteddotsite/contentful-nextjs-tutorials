@@ -26,7 +26,7 @@ export default function Header() {
             className='object-cover scale-105'
             src={profile.coverImage}
             layout='fill'
-            alt={`services offered by ${profile.companyName}`}
+            alt={`services offered by ${profile.companyName} - Headless Commerce & CMS Experts`}
           />
         </div>
         <div className='max-w-5xl mx-auto px-4 sm:px-6 lg:px-8'>

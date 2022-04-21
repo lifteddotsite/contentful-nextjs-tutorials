@@ -2,6 +2,11 @@ import { FaYoutube, FaTwitter, FaGithub, FaLinkedin } from 'react-icons/fa';
 const navigation = {
   social: [
     {
+      name: 'Youtube',
+      href: 'https://www.youtube.com/channel/UCZSFuQ0eoDxe8WXbt_th9zA',
+      icon: (props) => <FaYoutube />,
+    },
+    {
       name: 'Twitter',
       href: 'https://twitter.com/LiftedWp',
       icon: (props) => <FaTwitter />,
@@ -11,11 +16,7 @@ const navigation = {
       href: 'https://github.com/liftedwp/',
       icon: (props) => <FaGithub />,
     },
-    {
-      name: 'Youtube',
-      href: 'https://www.youtube.com/channel/UCZSFuQ0eoDxe8WXbt_th9zA',
-      icon: (props) => <FaYoutube />,
-    },
+
     {
       name: 'LinkedIn',
       href: 'https://linkedin.com/company/liftedwp',
@@ -27,6 +28,7 @@ const navigation = {
 const footerData = {
   message:
     "I hope you find this demo project helpful. If you're working a similar project, I'd love to help.",
+  followMessage: 'Follow me on social media for more tutorial like this.',
   callToActionURL: 'https://liftedwp.com/contact',
   callToActionMessage: 'Click here to book a call with me.',
 };
@@ -35,7 +37,10 @@ export default function Footer() {
   return (
     <footer className='bg-white'>
       <div className='max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8'>
-        <div className='mt-8 flex justify-center space-x-6'>
+        <p className='text-center text-base text-gray-400'>
+          {footerData.followMessage}
+        </p>
+        <div className='mt-2 flex justify-center space-x-6'>
           {navigation.social.map((item) => (
             <a
               key={item.name}
@@ -47,7 +52,7 @@ export default function Footer() {
             </a>
           ))}
         </div>
-        <p className='mt-8 text-center text-base text-gray-400'>
+        <p className='mt-8 text-center  text-lg text-gray-600'>
           {footerData.message} <br />
           <a
             href={footerData.callToActionURL}
