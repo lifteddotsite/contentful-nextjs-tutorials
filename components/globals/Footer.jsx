@@ -1,4 +1,7 @@
 import { FaYoutube, FaTwitter, FaGithub, FaLinkedin } from 'react-icons/fa';
+import LiftedWPLogo from '../../public/images/logo-symbolic-main-512.png';
+import Image from 'next/image';
+
 const navigation = {
   social: [
     {
@@ -27,7 +30,8 @@ const navigation = {
 
 const footerData = {
   message:
-    "I hope you find this demo project helpful. If you're working a similar project, I'd love to help.",
+    "I hope you find this demo project helpful. If you ever need my services on a similar project, I'd love to help!",
+
   followMessage: 'Follow me on social media for more tutorial like this.',
   callToActionURL: 'https://liftedwp.com/contact',
   callToActionMessage: 'Click here to book a call with me.',
@@ -56,9 +60,15 @@ export default function Footer() {
           {footerData.message} <br />
           <a
             href={footerData.callToActionURL}
-            className='text-indigo-600 hover:text-indigo-800'
+            className='text-liftedgreen-700 hover:text-liftedgreen-800'
           >
-            {footerData.callToActionMessage}
+            {footerData.callToActionMessage} <br />
+            <Image
+              src={LiftedWPLogo}
+              height={60}
+              width={60}
+              alt={`LiftedWP - Headless Commerce & CMS Experts.`}
+            />
           </a>
         </p>
       </div>
