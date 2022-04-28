@@ -1,6 +1,7 @@
-/* eslint-disable react/no-unescaped-entities */
-/* This example requires Tailwind CSS v2.0+ */
-export default function Index() {
+import { getCompanies } from '../datalayer';
+
+export default function Index({ companies }) {
+  console.log(companies);
   return (
     <button
       type='button'
@@ -31,3 +32,13 @@ export default function Index() {
     </button>
   );
 }
+
+export const getStaticProps = async (ctx) => {
+  const companies = await getCompanies();
+
+  return {
+    props: {
+      companies,
+    },
+  };
+};
