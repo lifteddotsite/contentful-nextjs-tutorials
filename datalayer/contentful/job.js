@@ -10,3 +10,12 @@ export const getJobs = async () => {
   });
   return jobs;
 };
+
+export const getSlugs = async () => {
+  const rawSlugs = await client.getEntries({
+    content_type: 'job',
+    select: ['fields.slug'],
+  });
+  const slugs = rawSlugs.items.map((rawSlug) => rawSlug.fields.slug);
+  return slugs;
+};
