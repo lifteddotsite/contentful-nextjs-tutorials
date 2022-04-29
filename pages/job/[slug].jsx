@@ -1,4 +1,4 @@
-import { getSlugs, getJobBySlug } from '../../datalayer/contentful/job';
+import { getJobsSlugs, getJobBySlug } from '../../datalayer';
 import JobDetails from '../../components/data/details/JobDetails';
 
 const JobDetailsPage = ({ job }) => {
@@ -7,7 +7,7 @@ const JobDetailsPage = ({ job }) => {
 export default JobDetailsPage;
 
 export const getStaticPaths = async () => {
-  const slugs = await getSlugs();
+  const slugs = await getJobsSlugs();
   const paths = slugs.map((slug) => ({ params: { slug } }));
   return {
     paths,
