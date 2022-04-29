@@ -19,3 +19,18 @@ export const getSlugs = async () => {
   const slugs = rawSlugs.items.map((rawSlug) => rawSlug.fields.slug);
   return slugs;
 };
+
+export const getJobBySlug = async ({ slug }) => {
+  const found = await client.getEntries({
+    content_type: 'job',
+    'fields.slug': slug,
+
+    // needed to fetch linked items, otherwise job.fields.relatedJobs[0].fields.company.fields is undefined
+    // https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/links/retrieval-of-linked-items
+    include: 2,
+  });
+
+  if (found.items.length == 0) return null;
+  const job = found.items[0];
+  return jobReducer(job);
+};
