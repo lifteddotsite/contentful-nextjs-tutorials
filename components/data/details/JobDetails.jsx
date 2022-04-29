@@ -3,8 +3,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import {
-  MailIcon,
-  ArrowLeftIcon,
   ArrowRightIcon,
   ChevronLeftIcon,
 } from '@heroicons/react/solid';
@@ -34,9 +32,68 @@ const JobDetails = ({ job }) => {
             <h1 className='text-2xl md:text-3xl text-slate-800 font-bold'>
               {job.title}
             </h1>
-            <div className='text-md text-slate-500'>
-              {job.jobType} / {job.experienceLevel} / {job.company.city}{' '}
-              {job.remoteOk && '/ Remote Ok'}
+
+            {/* Important Job Details */}
+            <div className='md:flex justify-between items-center space-y-4 md:space-y-0 space-x-2 mt-2'>
+              {/* Left side */}
+              <div className='flex items-start space-x-3 md:space-x-4'>
+                <div>
+                  <div className='text-sm text-slate-500'>
+                    {job.jobType} / {job.experienceLevel} / {job.company.city}{' '}
+                    {job.remoteOk && '/ Remote Ok'}
+                  </div>
+                  {/* Skill Tags */}
+                  <div>
+                    <div className='flex flex-wrap items-center -m-1'>
+                      {job.skills &&
+                        job.skills.map((tag) => (
+                          <div className='m-1' key={skill}>
+                            <a
+                              className='text-xs inline-flex font-medium bg-indigo-100 text-indigo-600 rounded-full text-center px-2.5 py-1'
+                              href='#'
+                            >
+                              {skill}
+                            </a>
+                          </div>
+                        ))}
+                      <div className='m-1'>
+                        <a
+                          className='text-xs inline-flex font-medium bg-indigo-100 text-indigo-600 rounded-full text-center px-2.5 py-1'
+                          href='#'
+                        >
+                          dummy-tag
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* Right side */}
+              <div className='flex flex-col space-y-1 items-end'>
+                <div className='text-sm text-slate-900'>
+                  £{job.baseAnnualSalary} / Year
+                </div>
+                <div className='flex items-center space-x-4 pl-10 md:pl-0'>
+                  {job.featuredJob && (
+                    <div
+                      className={`text-xs inline-flex font-medium rounded-full text-center px-2.5 py-1 bg-amber-100 text-amber-600`}
+                    >
+                      Featured
+                    </div>
+                  )}
+                  <button className='text-slate-300 hover:text-slate-400 mt-1'>
+                    <span className='sr-only'>Bookmark</span>
+                    <svg
+                      className='w-3 h-4 fill-current'
+                      width='12'
+                      height='16'
+                      xmlns='http://www.w3.org/2000/svg'
+                    >
+                      <path d='M2 0C.9 0 0 .9 0 2v14l6-3 6 3V2c0-1.1-.9-2-2-2H2Z' />
+                    </svg>
+                  </button>
+                </div>
+              </div>
             </div>
           </header>
 
@@ -86,30 +143,6 @@ const JobDetails = ({ job }) => {
             </div>
           </div>
 
-          {/* Tags */}
-          <div className='mb-6'>
-            <div className='flex flex-wrap items-center -m-1'>
-              {job.skills &&
-                job.skills.map((tag) => (
-                  <div className='m-1' key={skill}>
-                    <a
-                      className='text-xs inline-flex font-medium bg-indigo-100 text-indigo-600 rounded-full text-center px-2.5 py-1'
-                      href='#'
-                    >
-                      {skill}
-                    </a>
-                  </div>
-                ))}
-              <div className='m-1'>
-                <a
-                  className='text-xs inline-flex font-medium bg-indigo-100 text-indigo-600 rounded-full text-center px-2.5 py-1'
-                  href='#'
-                >
-                  aaa
-                </a>
-              </div>
-            </div>
-          </div>
           <hr className='my-6 border-t border-slate-200' />
 
           {/* The Role */}
