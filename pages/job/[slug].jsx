@@ -1,5 +1,4 @@
-import { getJobs } from '../../datalayer/contentful/job';
-import { getSlugs } from '../../datalayer/contentful/job';
+import { getSlugs, getJobBySlug } from '../../datalayer/contentful/job';
 import JobDetails from '../../components/data/details/JobDetails';
 
 const JobDetailsPage = ({ job }) => {
@@ -18,9 +17,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({ params }) => {
   const slug = params.slug;
-  const jobs = await getJobs();
-  const job = jobs.filter((job) => job.slug === slug)[0];
-
+  const job = await getJobBySlug({ slug });
   return {
     props: {
       job,
