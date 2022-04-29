@@ -46,7 +46,7 @@ const JobDetails = ({ job }) => {
                   <div>
                     <div className='flex flex-wrap items-center -m-1'>
                       {job.skills &&
-                        job.skills.map((tag) => (
+                        job.skills.map((skill) => (
                           <div className='m-1' key={skill}>
                             <a
                               className='text-xs inline-flex font-medium bg-indigo-100 text-indigo-600 rounded-full text-center px-2.5 py-1'
@@ -56,14 +56,7 @@ const JobDetails = ({ job }) => {
                             </a>
                           </div>
                         ))}
-                      <div className='m-1'>
-                        <a
-                          className='text-xs inline-flex font-medium bg-indigo-100 text-indigo-600 rounded-full text-center px-2.5 py-1'
-                          href='#'
-                        >
-                          dummy-tag
-                        </a>
-                      </div>
+                      
                     </div>
                   </div>
                 </div>
