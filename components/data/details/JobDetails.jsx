@@ -2,10 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import {
-  ArrowRightIcon,
-  ChevronLeftIcon,
-} from '@heroicons/react/solid';
+import { ArrowRightIcon, ChevronLeftIcon } from '@heroicons/react/solid';
 
 import JobCard from '../cards/JobCard';
 
@@ -24,8 +21,11 @@ const JobDetails = ({ job }) => {
               </a>
             </Link>
           </div>
-          <div className='text-sm text-slate-500 italic mb-2'>
-            Posted On <span className='font-semibold'>{job.datePosted}</span>
+          <div className='text-xs text-slate-500 italic mb-2'>
+            Posted On: <span className='font-semibold'>{job.datePosted}</span>
+            {'  -  '}
+            Job Category:{' '}
+            <span className='font-semibold'>{job.jobCategory}</span>
           </div>
           <header className='mb-4'>
             {/* Title */}
