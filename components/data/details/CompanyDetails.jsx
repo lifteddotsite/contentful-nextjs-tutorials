@@ -22,7 +22,7 @@ const CompanyDetails = ({ company, companyJobs }) => {
     <>
       <main>
         {/* Profile background */}
-        <div className='h-56 bg-slate-200'>
+        <div className='h-30 md:56 bg-slate-200'>
           <Image
             className='object-cover h-full w-full'
             src={company.coverImage.url}
@@ -42,8 +42,8 @@ const CompanyDetails = ({ company, companyJobs }) => {
                   <Image
                     className='rounded-full border-4 border-white'
                     src={company.logo.url}
-                    width={104}
-                    height={104}
+                    width={80}
+                    height={80}
                     alt={`logo - ${company.name} - ${company.slogan}`}
                   />
                 </div>
