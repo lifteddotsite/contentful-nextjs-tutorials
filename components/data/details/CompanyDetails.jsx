@@ -22,7 +22,7 @@ const CompanyDetails = ({ company, companyJobs }) => {
     <>
       <main>
         {/* Profile background */}
-        <div className='h-56 bg-slate-200'>
+        <div className='h-30 md:56 bg-slate-200'>
           <Image
             className='object-cover h-full w-full'
             src={company.coverImage.url}
@@ -42,8 +42,8 @@ const CompanyDetails = ({ company, companyJobs }) => {
                   <Image
                     className='rounded-full border-4 border-white'
                     src={company.logo.url}
-                    width={104}
-                    height={104}
+                    width={80}
+                    height={80}
                     alt={`logo - ${company.name} - ${company.slogan}`}
                   />
                 </div>
@@ -78,7 +78,7 @@ const CompanyDetails = ({ company, companyJobs }) => {
                     <path d='M11 0c1.3 0 2.6.5 3.5 1.5 1 .9 1.5 2.2 1.5 3.5 0 1.3-.5 2.6-1.4 3.5l-1.2 1.2c-.2.2-.5.3-.7.3-.2 0-.5-.1-.7-.3-.4-.4-.4-1 0-1.4l1.1-1.2c.6-.5.9-1.3.9-2.1s-.3-1.6-.9-2.2C12 1.7 10 1.7 8.9 2.8L7.7 4c-.4.4-1 .4-1.4 0-.4-.4-.4-1 0-1.4l1.2-1.1C8.4.5 9.7 0 11 0ZM8.3 12c.4-.4 1-.5 1.4-.1.4.4.4 1 0 1.4l-1.2 1.2C7.6 15.5 6.3 16 5 16c-1.3 0-2.6-.5-3.5-1.5C.5 13.6 0 12.3 0 11c0-1.3.5-2.6 1.5-3.5l1.1-1.2c.4-.4 1-.4 1.4 0 .4.4.4 1 0 1.4L2.9 8.9c-.6.5-.9 1.3-.9 2.1s.3 1.6.9 2.2c1.1 1.1 3.1 1.1 4.2 0L8.3 12Zm1.1-6.8c.4-.4 1-.4 1.4 0 .4.4.4 1 0 1.4l-4.2 4.2c-.2.2-.5.3-.7.3-.2 0-.5-.1-.7-.3-.4-.4-.4-1 0-1.4l4.2-4.2Z' />
                   </svg>
                   <a
-                    className='text-sm font-medium whitespace-nowrap text-indigo-500 hover:text-indigo-600 ml-2'
+                    className='text-sm font-medium whitespace-nowrap text-indigo-500 hover:text-indigo-700 ml-2'
                     href={company.website}
                   >
                     {company.website}
