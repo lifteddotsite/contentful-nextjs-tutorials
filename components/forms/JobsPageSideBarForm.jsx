@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function JobsPageSideBarForm() {
+function JobsPageSideBarForm({setFilteredJobs}) {
   const [companySetting, setCompanySetting] = useState(true);
   const [immigrationSetting, setImmigrationSetting] = useState(false);
 

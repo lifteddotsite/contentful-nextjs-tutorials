@@ -1,7 +1,20 @@
-const SearchJobForm = () => {
+import { useState } from 'react';
+
+const SearchJobForm = ({ setFilteredJobs }) => {
+  const [searchText, setSearchText] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(searchText);
+    if (searchText) {
+      alert(`Searching: ${searchText}`);
+      //TODO: create a function in the datalayer to fetch the jobs based on the search query
+    }
+  };
+
   return (
     <div className='mb-5'>
-      <form className='relative'>
+      <form className='relative' onSubmit={handleSubmit}>
         <label htmlFor='job-search' className='sr-only'>
           Search
         </label>
@@ -10,6 +23,8 @@ const SearchJobForm = () => {
           className='form-input w-full pl-9 focus:border-slate-300'
           type='search'
           placeholder='Search job title or keyword…'
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
         />
         <button
           className='absolute inset-0 right-auto group'
