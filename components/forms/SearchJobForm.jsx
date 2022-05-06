@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const SearchJobForm = ({ setFilteredJobs }) => {
+const SearchJobForm = ({ setDisplayedJobs }) => {
   const [searchText, setSearchText] = useState('');
 
   const handleSubmit = (e) => {

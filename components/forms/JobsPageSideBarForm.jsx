@@ -1,8 +1,26 @@
 import React, { useState } from 'react';
+import { Switch } from '@headlessui/react'
 
-function JobsPageSideBarForm({setFilteredJobs}) {
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
+}
+
+function JobsPageSideBarForm({setDisplayedJobs}) {
   const [companySetting, setCompanySetting] = useState(true);
   const [immigrationSetting, setImmigrationSetting] = useState(false);
+  const [formState, setFormState] = useState({
+    jobType: '',
+    experienceLevel: '',
+    remoteOk: true,
+    featuredJobOnly: false,
+    baseAnnualSalary: '',
+
+
+  })
+  /*
+
+  - datePosted
+  */
 
   return (
     <div className='space-y-8'>
