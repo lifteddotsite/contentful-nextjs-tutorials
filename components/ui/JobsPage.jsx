@@ -1,0 +1,18 @@
+import JobsList from '../data/lists/JobsList';
+import SearchJobForm from '../forms/SearchJobForm';
+import JobsPageSideBarForm from '../forms/JobsPageSideBarForm';
+import JobsPageHeader from './JobsPageHeader';
+
+export default function JobsPage({ jobs }) {
+  return (
+    <div className='flex flex-col space-y-10 sm:flex-row sm:space-x-6 sm:space-y-0 md:flex-col md:space-x-0 md:space-y-10 xl:flex-row xl:space-x-6 xl:space-y-0 mt-9'>
+      <JobsPageSideBarForm />
+
+      <div className='w-full'>
+        <SearchJobForm />
+        <JobsPageHeader jobs={jobs} />
+        <JobsList jobs={jobs} />
+      </div>
+    </div>
+  );
+}
