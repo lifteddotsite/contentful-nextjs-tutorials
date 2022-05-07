@@ -5,16 +5,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-function JobsPageSideBarForm({ setDisplayedJobs }) {
-  const [formState, setFormState] = useState({
-    jobTypes: [],
-    experienceLevels: [],
-    remoteOk: true,
-    featuredJobsOnly: false,
-    baseSalaryOptions: [],
-    baseSalaryBounds: [],
-  });
-
+function JobsPageSideBarForm({sideBarFormState, setSideBarFormState, setDisplayedJobs }) {
   const jobTypesOptions = [
     { value: 'full-time', display: 'Full Time' },
     { value: 'part-time', display: 'Part Time' },
@@ -51,7 +42,7 @@ function JobsPageSideBarForm({ setDisplayedJobs }) {
   const handleRemoteOkChange = (checked) => {
     console.log(checked);
     //TODO: send request and filter jobs
-    setFormState((prevState) => {
+    setSideBarFormState((prevState) => {
       return { ...prevState, remoteOk: !prevState.remoteOk };
     });
   };
@@ -59,7 +50,7 @@ function JobsPageSideBarForm({ setDisplayedJobs }) {
   const handleFeaturedJobsOnlyChange = (checked) => {
     console.log(checked);
     //TODO: send request and filter jobs
-    setFormState((prevState) => {
+    setSideBarFormState((prevState) => {
       return { ...prevState, featuredJobsOnly: !prevState.featuredJobsOnly };
     });
   };
@@ -67,13 +58,13 @@ function JobsPageSideBarForm({ setDisplayedJobs }) {
   const handleJobTypeSelect = (e, option) => {
     console.log(e.target.checked, option);
     if (e.target.checked) {
-      setFormState((prevState) => {
+      setSideBarFormState((prevState) => {
         const jobTypes = [...prevState.jobTypes];
         jobTypes.push(option);
         return { ...prevState, jobTypes };
       });
     } else {
-      setFormState((prevState) => {
+      setSideBarFormState((prevState) => {
         return {
           ...prevState,
           jobTypes: prevState.jobTypes.filter((jobType) => option != jobType),
@@ -85,13 +76,13 @@ function JobsPageSideBarForm({ setDisplayedJobs }) {
   const handleExperienceLevelsSelect = (e, option) => {
     console.log(e.target.checked, option);
     if (e.target.checked) {
-      setFormState((prevState) => {
+      setSideBarFormState((prevState) => {
         const experienceLevels = [...prevState.experienceLevels];
         experienceLevels.push(option);
         return { ...prevState, experienceLevels };
       });
     } else {
-      setFormState((prevState) => {
+      setSideBarFormState((prevState) => {
         return {
           ...prevState,
           experienceLevels: prevState.experienceLevels.filter(
@@ -105,7 +96,7 @@ function JobsPageSideBarForm({ setDisplayedJobs }) {
   const handleBaseSalaryRangesSelect = (e, option, bounds) => {
     console.log(e.target.checked, option, bounds);
     if (e.target.checked) {
-      setFormState((prevState) => {
+      setSideBarFormState((prevState) => {
         const baseSalaryOptions = [...prevState.baseSalaryOptions];
         baseSalaryOptions.push(option);
 
@@ -122,7 +113,7 @@ function JobsPageSideBarForm({ setDisplayedJobs }) {
         return newFormState;
       });
     } else {
-      setFormState((prevState) => {
+      setSideBarFormState((prevState) => {
         const newFormState = {
           ...prevState,
           baseSalaryOptions: prevState.baseSalaryOptions.filter(
@@ -147,17 +138,17 @@ function JobsPageSideBarForm({ setDisplayedJobs }) {
           {/* Group 1 */}
           <Switch.Group as='div' className='flex items-center'>
             <Switch
-              checked={formState.remoteOk}
+              checked={sideBarFormState.remoteOk}
               onChange={handleRemoteOkChange}
               className={classNames(
-                formState.remoteOk ? 'bg-indigo-600' : 'bg-gray-200',
+                sideBarFormState.remoteOk ? 'bg-indigo-600' : 'bg-gray-200',
                 'relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
               )}
             >
               <span
                 aria-hidden='true'
                 className={classNames(
-                  formState.remoteOk ? 'translate-x-5' : 'translate-x-0',
+                  sideBarFormState.remoteOk ? 'translate-x-5' : 'translate-x-0',
                   'pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200'
                 )}
               />
@@ -172,17 +163,17 @@ function JobsPageSideBarForm({ setDisplayedJobs }) {
           {/* Group 2 */}
           <Switch.Group as='div' className='flex items-center'>
             <Switch
-              checked={formState.featuredJobsOnly}
+              checked={sideBarFormState.featuredJobsOnly}
               onChange={handleFeaturedJobsOnlyChange}
               className={classNames(
-                formState.featuredJobsOnly ? 'bg-indigo-600' : 'bg-gray-200',
+                sideBarFormState.featuredJobsOnly ? 'bg-indigo-600' : 'bg-gray-200',
                 'relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
               )}
             >
               <span
                 aria-hidden='true'
                 className={classNames(
-                  formState.featuredJobsOnly
+                  sideBarFormState.featuredJobsOnly
                     ? 'translate-x-5'
                     : 'translate-x-0',
                   'pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200'
@@ -210,7 +201,7 @@ function JobsPageSideBarForm({ setDisplayedJobs }) {
                         type='checkbox'
                         className='form-checkbox'
                         onChange={(e) => handleJobTypeSelect(e, option.value)}
-                        checked={formState.jobTypes.includes(option.value)}
+                        checked={sideBarFormState.jobTypes.includes(option.value)}
                       />
                       <span className='text-sm text-slate-600 font-medium ml-2'>
                         {option.display}
@@ -238,7 +229,7 @@ function JobsPageSideBarForm({ setDisplayedJobs }) {
                         onChange={(e) =>
                           handleExperienceLevelsSelect(e, option.value)
                         }
-                        checked={formState.experienceLevels.includes(
+                        checked={sideBarFormState.experienceLevels.includes(
                           option.value
                         )}
                       />
@@ -272,7 +263,7 @@ function JobsPageSideBarForm({ setDisplayedJobs }) {
                             option.bounds
                           )
                         }
-                        checked={formState.baseSalaryOptions.includes(
+                        checked={sideBarFormState.baseSalaryOptions.includes(
                           option.value
                         )}
                       />
