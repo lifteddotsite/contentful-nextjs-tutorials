@@ -15,7 +15,7 @@ export default function JobsPage({ jobs, jobSkills }) {
     featuredJobsOnly: false,
     baseSalaryOptions: [],
     baseSalaryBounds: [],
-    selectedTags: []
+    selectedTags: [],
   });
 
   const [searchFormState, setSearchFormState] = useState('');
@@ -74,6 +74,16 @@ export default function JobsPage({ jobs, jobSkills }) {
       break;
   }
 
+  const handleSkillTagDelete = (e, skillTag) => {
+    e.preventDefault();
+    setSideBarFormState((prevState) => {
+      return {
+        ...prevState,
+        selectedTags: prevState.selectedTags.filter((tag) => skillTag != tag),
+      };
+    });
+  };
+
   return (
     <div className='flex flex-col space-y-10 sm:flex-row sm:space-x-6 sm:space-y-0 md:flex-col md:space-x-0 md:space-y-10 xl:flex-row xl:space-x-6 xl:space-y-0 mt-9'>
       <JobsPageSideBarForm
@@ -90,9 +100,41 @@ export default function JobsPage({ jobs, jobSkills }) {
         />
         {/* Jobs header */}
         <div className='flex justify-between items-center mb-4'>
+          {/* Number of jobs found message  */}
           <div className='text-sm text-slate-500 italic'>
             {jobsFoundMessage}
           </div>
+
+          {/* skills tags */}
+          <div>
+            <div className='flex flex-wrap items-center -m-1 max-w-2xl'>
+              {sideBarFormState.selectedTags &&
+                sideBarFormState.selectedTags.map((skill) => (
+                  <div className='m-1' key={skill}>
+                    <a
+                      className='text-xs hover:scale-110  hover:bg-red-100 hover:text-red-600 inline-flex font-medium bg-indigo-100 text-indigo-600 rounded-full text-center px-2.5 py-1'
+                      href='#'
+                    >
+                      {skill}
+                      <svg
+                        className='h-2 w-2 ml-2 mt-1 text-sm hover:cursor-pointer'
+                        stroke='currentColor'
+                        fill='none'
+                        viewBox='0 0 8 8'
+                        onClick={(e) => handleSkillTagDelete(e, skill)}
+                      >
+                        <path
+                          strokeLinecap='round'
+                          strokeWidth='1.5'
+                          d='M1 1l6 6m0-6L1 7'
+                        />
+                      </svg>
+                    </a>
+                  </div>
+                ))}
+            </div>
+          </div>
+
           {/* Sort */}
           <JobsSortForm
             jobs={displayedJobs}
