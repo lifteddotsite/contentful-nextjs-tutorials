@@ -113,3 +113,25 @@ export const searchJobs = async (query) => {
 
   return filteredJobs;
 };
+
+export const searchCompaniesButReturnJobs = async (searchBarText) => {
+  let contentFullQuery = {
+    content_type: 'job',
+    'fields.company.sys.contentType.sys.id': 'company',
+    'fields.company.fields.name[match]': searchBarText,
+
+    // multiple matches are NOT supported by Contentful so we prioritise the company name
+    // 'fields.company.fields.city[match]': searchBarText,
+    // 'fields.company.fields.slogan[match]': searchBarText,
+    // 'fields.company.fields.website[match]': searchBarText,
+    include: 2,
+  };
+  const res = await client.getEntries(contentFullQuery);
+  const foundJobs = res.items;
+
+  const jobs = foundJobs.map((rawJob) => {
+    return jobReducer(rawJob);
+  });
+
+  return jobs;
+};

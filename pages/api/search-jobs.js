@@ -1,4 +1,4 @@
-import { searchJobs } from '../../datalayer';
+import { searchJobs, searchCompaniesButReturnJobs } from '../../datalayer';
 
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -35,6 +35,23 @@ export default async function handler(req, res) {
   };
 
   console.log(query);
-  const jobs = await searchJobs(query);
-  res.status(200).json(jobs);
+
+  // search in the jobs entities
+  const jobs1 = await searchJobs(query);
+
+  // seatch in the job entities by company name
+  let jobs2 = [];
+  if (query.searchBarText) {
+    jobs2 = await searchCompaniesButReturnJobs(query.searchBarText);
+  }
+
+  // merge the two results
+  let jobs1Ids = jobs1.map((job) => job.id);
+  jobs2.map((job2) => {
+    if (!jobs1Ids.includes(job2.id)) {
+      jobs1.push(job2);
+    }
+  });
+
+  res.status(200).json(jobs1);
 }
