@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect, useRef } from 'react';
 import JobsList from '../data/lists/JobsList';
 import SearchJobForm from '../forms/SearchJobForm';

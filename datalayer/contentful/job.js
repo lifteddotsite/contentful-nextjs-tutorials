@@ -61,6 +61,10 @@ export const searchJobs = async (query) => {
   if (query.featuredJobsOnly)
     contentFullQuery['fields.featuredJob'] = query.featuredJobsOnly;
 
+  // Add Range Query Filters
+  contentFullQuery['fields.baseAnnualSalary[gte]'] = query.minBaseSalary;
+  contentFullQuery['fields.baseAnnualSalary[lte]'] = query.maxBaseSalary;
+
   const res = await client.getEntries(contentFullQuery);
 
   const foundJobs = res.items;
