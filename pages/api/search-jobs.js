@@ -1,7 +1,11 @@
 import { searchJobs } from '../../datalayer';
 
 export default async function handler(req, res) {
-  const query = req.query;
-  const jobs = await searchJobs({ remoteOk: false });
+  const { searchFormState, sideBarFormState } = req.body;
+  const query = {
+    ...sideBarFormState,
+    searchBarText: searchFormState,
+  };
+  const jobs = await searchJobs(query);
   res.status(200).json(jobs);
 }
