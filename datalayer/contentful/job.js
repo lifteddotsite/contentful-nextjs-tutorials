@@ -80,6 +80,11 @@ export const searchJobs = async (query) => {
   if (selectedTags.length)
     contentFullQuery['metadata.tags.sys.id[in]'] = selectedTags.join(',');
 
+  // Add Full Text Search Query
+  if (query.searchBarText) {
+    contentFullQuery['query'] = query.searchBarText;
+  }
+
   // Add Inclusion Query Filters
   // [DOES NOT WORK]
   // contentful api does NOT have an OR operator: https://www.contentfulcommunity.com/t/delivery-api-or-in-search-query/763
