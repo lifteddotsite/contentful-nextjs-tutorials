@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Switch } from '@headlessui/react';
+import TagsFilterForm from './TagsFilterForm';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
 function JobsPageSideBarForm({
+  jobSkills,
   sideBarFormState,
   setSideBarFormState,
   setDisplayedJobs,
@@ -139,6 +141,13 @@ function JobsPageSideBarForm({
       {/* White box */}
       <div className='bg-white shadow-lg rounded-sm border border-slate-200 p-5'>
         <div className='grid md:grid-cols-2 xl:grid-cols-1 gap-6'>
+          {/* Group 0*/}
+          <TagsFilterForm
+            jobSkills={jobSkills}
+            selectedTags={sideBarFormState.selectedTags}
+            setSideBarFormState={setSideBarFormState}
+          />
+
           {/* Group 1 */}
           <Switch.Group as='div' className='flex items-center'>
             <Switch

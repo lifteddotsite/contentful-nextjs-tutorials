@@ -1,5 +1,5 @@
 import { client } from './client';
-import { jobReducer } from './utils';
+import { jobReducer, skillsReducer, tagsReducer } from './utils';
 
 export const getJobs = async () => {
   const res = await client.getEntries({ content_type: 'job' });
@@ -9,6 +9,15 @@ export const getJobs = async () => {
     return jobReducer(rawJob);
   });
   return jobs;
+};
+
+export const getJobsSkills = async () => {
+  const res = await client.getTags();
+  const rawTags = res.items;
+
+  const tags = tagsReducer(rawTags);
+  const skills = skillsReducer(tags);
+  return skills;
 };
 
 export const getJobsSlugs = async () => {
