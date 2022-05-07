@@ -48,3 +48,16 @@ export const getJobsByCompanyId = async ({ id }) => {
   });
   return jobs;
 };
+
+export const searchJobs = async (query) => {
+  const found = await client.getEntries({
+    content_type: 'job',
+    include: 2,
+    'fields.remoteOk': query.remoteOk,
+    'fields.featuredJob': query.featuredJobsOnly,
+  });
+
+  if (found.items.length == 0) return null;
+  const job = found.items[0];
+  return jobReducer(job);
+};
