@@ -50,14 +50,23 @@ export const getJobsByCompanyId = async ({ id }) => {
 };
 
 export const searchJobs = async (query) => {
-  const found = await client.getEntries({
+  let contentFullQuery = {
     content_type: 'job',
     include: 2,
-    'fields.remoteOk': query.remoteOk,
-    'fields.featuredJob': query.featuredJobsOnly,
-  });
+  };
 
-  if (found.items.length == 0) return null;
-  const job = found.items[0];
-  return jobReducer(job);
+  // Add Equality Query Filters
+  if (query.remoteOkOnly)
+    contentFullQuery['fields.remoteOk'] = query.remoteOkOnly;
+  if (query.featuredJobsOnly)
+    contentFullQuery['fields.featuredJob'] = query.featuredJobsOnly;
+
+  const res = await client.getEntries(contentFullQuery);
+
+  const foundJobs = res.items;
+
+  const jobs = foundJobs.map((rawJob) => {
+    return jobReducer(rawJob);
+  });
+  return jobs;
 };
