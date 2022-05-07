@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 const JobCard = ({ job }) => {
-  console.log(job);
+  //console.log(job);
   return (
     <div
       className={`shadow-lg rounded-sm border px-5 py-4 ${
