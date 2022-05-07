@@ -7,11 +7,13 @@ export default function TagsFilterForm({
   setSideBarFormState,
   jobSkills,
 }) {
+
   const filter = {
     id: 'skills-filter',
     name: 'Filter By Skills',
     options: jobSkills.map((skill) => ({ value: skill, label: skill })),
   };
+  
   const selectedTagsCount = selectedTags.length;
 
   const handleSelectedTag = (e, option) => {

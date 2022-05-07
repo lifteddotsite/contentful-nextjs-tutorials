@@ -74,6 +74,12 @@ export const searchJobs = async (query) => {
   contentFullQuery['fields.baseAnnualSalary[gte]'] = query.minBaseSalary;
   contentFullQuery['fields.baseAnnualSalary[lte]'] = query.maxBaseSalary;
 
+  // Add Tags Query Filters
+  // we first parse the skills tags back to their contentful-specific version with the "skill." prefix
+  const selectedTags = query.selectedTags.map((tag) => `skill.${tag}`);
+  if (selectedTags.length)
+    contentFullQuery['metadata.tags.sys.id[in]'] = selectedTags.join(',');
+
   // Add Inclusion Query Filters
   // [DOES NOT WORK]
   // contentful api does NOT have an OR operator: https://www.contentfulcommunity.com/t/delivery-api-or-in-search-query/763
