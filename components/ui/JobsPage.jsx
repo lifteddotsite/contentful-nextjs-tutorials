@@ -5,7 +5,7 @@ import SearchJobForm from '../forms/SearchJobForm';
 import JobsPageSideBarForm from '../forms/JobsPageSideBarForm';
 import JobsSortForm from '../forms/JobsSortForm';
 
-export default function JobsPage({ jobs }) {
+export default function JobsPage({ jobs, jobSkills }) {
   const [displayedJobs, setDisplayedJobs] = useState(jobs);
 
   const [sideBarFormState, setSideBarFormState] = useState({
@@ -15,6 +15,7 @@ export default function JobsPage({ jobs }) {
     featuredJobsOnly: false,
     baseSalaryOptions: [],
     baseSalaryBounds: [],
+    selectedTags: []
   });
 
   const [searchFormState, setSearchFormState] = useState('');
@@ -76,6 +77,7 @@ export default function JobsPage({ jobs }) {
   return (
     <div className='flex flex-col space-y-10 sm:flex-row sm:space-x-6 sm:space-y-0 md:flex-col md:space-x-0 md:space-y-10 xl:flex-row xl:space-x-6 xl:space-y-0 mt-9'>
       <JobsPageSideBarForm
+        jobSkills={jobSkills}
         sideBarFormState={sideBarFormState}
         setSideBarFormState={setSideBarFormState}
         setdisplayedJobs={setDisplayedJobs}
