@@ -1,12 +1,16 @@
 import { useState } from 'react';
 
-const SearchJobForm = ({searchFormState, setSearchFormState, setDisplayedJobs }) => {
+const SearchJobForm = ({
+  searchFormState,
+  setSearchFormState,
+  setDisplayedJobs,
+}) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(searchFormState);
     if (searchFormState) {
-      alert(`Searching: ${searchFormState}`);
-      //TODO: create a function in the datalayer to fetch the jobs based on the search query
+      // we don't have much to do here since the useEffect Hook is already listening to changes on this state
+      console.log(`Searching: ${searchFormState}`);
     }
   };
 

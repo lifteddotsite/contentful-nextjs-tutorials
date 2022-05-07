@@ -46,13 +46,13 @@ export default function JobsPage({ jobs, jobSkills }) {
   }, [sideBarFormState]);
 
   const initialRender2 = useRef(true);
-  // trigger a search whenever the search form state changes && length >= 3
+  // trigger a search whenever the search form state changes && length >= 3 -OR- length == 0 (implying a reset)
   useEffect(() => {
     if (initialRender2.current) {
       initialRender2.current = false;
     } else {
-      console.log('search form changed && length >= 3 => triggering a search');
-      if (searchFormState.length >= 3) {
+      console.log('search form changed && length >= 3 OR ==0 => triggering a search');
+      if (searchFormState.length >= 3 || searchFormState.length == 0) {
         const formsStates = { searchFormState, sideBarFormState };
         searchJobs('api/search-jobs', formsStates);
       }
