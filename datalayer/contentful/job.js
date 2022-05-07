@@ -1,5 +1,5 @@
 import { client } from './client';
-import { jobReducer } from './utils';
+import { jobReducer, skillsReducer, tagsReducer } from './utils';
 
 export const getJobs = async () => {
   const res = await client.getEntries({ content_type: 'job' });
@@ -9,6 +9,15 @@ export const getJobs = async () => {
     return jobReducer(rawJob);
   });
   return jobs;
+};
+
+export const getJobsSkills = async () => {
+  const res = await client.getTags();
+  const rawTags = res.items;
+
+  const tags = tagsReducer(rawTags);
+  const skills = skillsReducer(tags);
+  return skills;
 };
 
 export const getJobsSlugs = async () => {
@@ -64,6 +73,12 @@ export const searchJobs = async (query) => {
   // Add Range Query Filters
   contentFullQuery['fields.baseAnnualSalary[gte]'] = query.minBaseSalary;
   contentFullQuery['fields.baseAnnualSalary[lte]'] = query.maxBaseSalary;
+
+  // Add Tags Query Filters
+  // we first parse the skills tags back to their contentful-specific version with the "skill." prefix
+  const selectedTags = query.selectedTags.map((tag) => `skill.${tag}`);
+  if (selectedTags.length)
+    contentFullQuery['metadata.tags.sys.id[in]'] = selectedTags.join(',');
 
   // Add Inclusion Query Filters
   // [DOES NOT WORK]
