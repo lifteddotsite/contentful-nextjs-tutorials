@@ -1,13 +1,11 @@
 import { useState } from 'react';
 
-const SearchJobForm = ({ setDisplayedJobs }) => {
-  const [searchText, setSearchText] = useState('');
-
+const SearchJobForm = ({searchFormState, setSearchFormState, setDisplayedJobs }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(searchText);
-    if (searchText) {
-      alert(`Searching: ${searchText}`);
+    console.log(searchFormState);
+    if (searchFormState) {
+      alert(`Searching: ${searchFormState}`);
       //TODO: create a function in the datalayer to fetch the jobs based on the search query
     }
   };
@@ -23,8 +21,8 @@ const SearchJobForm = ({ setDisplayedJobs }) => {
           className='form-input w-full pl-9 focus:border-slate-300'
           type='search'
           placeholder='Search job title or keyword…'
-          value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
+          value={searchFormState}
+          onChange={(e) => setSearchFormState(e.target.value)}
         />
         <button
           className='absolute inset-0 right-auto group'
