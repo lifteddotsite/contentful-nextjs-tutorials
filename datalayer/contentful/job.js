@@ -55,18 +55,17 @@ export const searchJobs = async (query) => {
     include: 2,
   };
 
-  // Add Equality Query Filters
+  // // Add Equality Query Filters
   if (query.remoteOkOnly)
     contentFullQuery['fields.remoteOk'] = query.remoteOkOnly;
   if (query.featuredJobsOnly)
     contentFullQuery['fields.featuredJob'] = query.featuredJobsOnly;
 
-  // Add Range Query Filters
+  // // Add Range Query Filters
   contentFullQuery['fields.baseAnnualSalary[gte]'] = query.minBaseSalary;
   contentFullQuery['fields.baseAnnualSalary[lte]'] = query.maxBaseSalary;
 
   const res = await client.getEntries(contentFullQuery);
-
   const foundJobs = res.items;
 
   const jobs = foundJobs.map((rawJob) => {
