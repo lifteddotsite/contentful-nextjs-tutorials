@@ -1,5 +1,9 @@
 import { searchJobs } from '../../datalayer';
 
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 export default async function handler(req, res) {
   const { searchFormState, sideBarFormState } = req.body;
 
@@ -13,11 +17,21 @@ export default async function handler(req, res) {
       ? Math.max(...sideBarFormState.baseSalaryBounds)
       : 1000000;
 
+  const jobTypes = sideBarFormState.jobTypes.map((jobType) =>
+    capitalizeFirstLetter(jobType)
+  );
+
+  const experienceLevels = sideBarFormState.experienceLevels.map(
+    (experienceLevel) => capitalizeFirstLetter(experienceLevel)
+  );
+
   const query = {
     ...sideBarFormState,
     searchBarText: searchFormState,
     minBaseSalary,
     maxBaseSalary,
+    jobTypes,
+    experienceLevels,
   };
 
   console.log(query);
