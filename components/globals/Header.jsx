@@ -6,12 +6,12 @@ import LiftedFounderAvatar from '../../public/images/liftedwp-founder-avatar.png
 const profile = {
   name: 'Junior Teudjio',
   role: 'CEO & Tech-Lead',
-  companyURL: 'https://liftedwp.com',
-  companyName: 'LiftedWP',
-  email: 'junior@liftedwp.com',
+  companyURL: 'https://lifted.site',
+  companyName: 'lifted.site',
+  email: 'junior@lifted.site',
   message:
     "Hey there, If you ever need my services on a similar project, I'd love to help!",
-  callToActionURL: 'https://liftedwp.com/contact',
+  callToActionURL: 'https://lifted.site/contact',
   callToActionMessage: 'Book a Call With Me',
   profileImage: LiftedFounderAvatar,
   coverImage: LiftedWPBanner,
