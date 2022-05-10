@@ -22,5 +22,6 @@ export const getStaticProps = async ({ params }) => {
     props: {
       job,
     },
+    revalidate: 5,
   };
 };
