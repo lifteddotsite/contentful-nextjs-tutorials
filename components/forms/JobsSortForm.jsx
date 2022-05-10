@@ -1,4 +1,9 @@
 import { useState } from 'react';
+import {
+  sortJobsByDatePosted,
+  sortJobsByBaseAnnualSalary,
+  sortJobsByCompanyName,
+} from '../../datalayer/utils';
 
 const JobsSortForm = ({ jobs, setDisplayedJobs }) => {
   const [sortby, setSortby] = useState('date-posted');
@@ -6,15 +11,35 @@ const JobsSortForm = ({ jobs, setDisplayedJobs }) => {
   const handleChange = (e) => {
     e.preventDefault();
     const newSortby = e.target.value;
+    if (newSortby === 'date-posted-asc') {
+      const sortedJobs = sortJobsByDatePosted({ jobs, ASC: true });
+      setDisplayedJobs(sortedJobs);
+    }
+    if (newSortby === 'date-posted-desc') {
+      const sortedJobs = sortJobsByDatePosted({ jobs, ASC: false });
+      setDisplayedJobs(sortedJobs);
+    }
+    if (newSortby === 'salary-asc') {
+      const sortedJobs = sortJobsByBaseAnnualSalary({ jobs, ASC: true });
+      setDisplayedJobs(sortedJobs);
+    }
+    if (newSortby === 'salary-desc') {
+      const sortedJobs = sortJobsByBaseAnnualSalary({ jobs, ASC: false });
+      setDisplayedJobs(sortedJobs);
+    }
+    if (newSortby === 'company') {
+      const sortedJobs = sortJobsByCompanyName({ jobs });
+      setDisplayedJobs(sortedJobs);
+    }
     setSortby(newSortby);
-    alert(`Sorting by: ${newSortby}`);
 
     //TODO: create a function to sort the jobs based on the new selected value
   };
 
   const options = [
-    { value: 'date-posted', display: 'Date Posted' },
     { value: 'company', display: 'Company' },
+    { value: 'date-posted-asc', display: 'Date Posted ASC' },
+    { value: 'date-posted-desc', display: 'Date Posted DESC' },
     { value: 'salary-asc', display: 'Salary ASC' },
     { value: 'salary-desc', display: 'Salary DESC' },
   ];
