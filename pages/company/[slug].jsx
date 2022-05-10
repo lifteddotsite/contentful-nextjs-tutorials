@@ -1,4 +1,5 @@
 import CompanyDetails from '../../components/data/details/CompanyDetails';
+import LoadingSpinner from '../../components/ui/LoadingSpinner';
 import {
   getCompaniesSlugs,
   getJobsByCompanyId,
@@ -6,6 +7,8 @@ import {
 } from '../../datalayer';
 
 const CompanyPage = ({ company, companyJobs }) => {
+  if (!company)
+    return <LoadingSpinner customMessage='Loading company data...' />;
   return <CompanyDetails company={company} companyJobs={companyJobs} />;
 };
 
@@ -30,6 +33,6 @@ export const getStaticPaths = async () => {
   const paths = slugs.map((slug) => ({ params: { slug } }));
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 };
