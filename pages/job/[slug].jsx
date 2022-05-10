@@ -20,6 +20,16 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async ({ params }) => {
   const slug = params.slug;
   const job = await getJobBySlug({ slug });
+
+  if(!job){
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      }
+    }
+  }
+
   return {
     props: {
       job,
