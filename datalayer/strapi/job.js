@@ -22,6 +22,96 @@ export const getJobs = async () => {
   return jobs;
 };
 
+export const searchJobs = async (query) => {
+  const strapiQuery = {
+    populate: ['company', 'company.logo', 'company.coverImage', 'skillsTags'],
+    filters: {},
+  };
+
+  // Add Equality Query Filters
+  if (query.remoteOkOnly) strapiQuery['filters']['remoteOk'] = { $eq: true };
+  if (query.featuredJobsOnly)
+    strapiQuery['filters']['featuredJob'] = { $eq: true };
+
+  // Add Range Query Filters
+  strapiQuery['filters']['baseAnnualSalary'] = {
+    $gte: query.minBaseSalary,
+    $lte: query.maxBaseSalary,
+  };
+
+  // Add Tags Query Filters
+  if (query.selectedTags.length)
+    strapiQuery['filters']['skillsTags'] = {
+      name: { $in: query.selectedTags },
+    };
+
+  // Add Full Text Search Query
+  if (query.searchBarText) {
+    const searchFields = [
+      'title',
+      'jobCategory',
+      'jobType',
+      'jobDescription',
+      'aboutYou',
+      'jobResponsibilities',
+      'remunerationPackage',
+      // deep nested search fields
+      'skillsTags.name',
+      'company.name',
+      'company.city',
+    ];
+    strapiQuery['filters']['$or'] = searchFields.map((field) => {
+      const searchField = {};
+      if (!field.includes('.')) {
+        searchField[field] = { $containsi: query.searchBarText };
+      } else {
+        const [level1, level2] = field.split('.');
+        const nestedSearchField = {};
+        nestedSearchField[level2] = { $containsi: query.searchBarText };
+        searchField[level1] = nestedSearchField;
+      }
+      return searchField;
+    });
+  }
+
+  // Add Inclusion Query Filters
+  strapiQuery['filters']['jobType'] = { $in: query.jobTypes };
+  strapiQuery['filters']['experienceLevel'] = { $in: query.experienceLevels };
+
+  const strapiQueryStr = qs.stringify(strapiQuery, { encodeValuesOnly: true });
+  const res = await axios.get(`${apiUrl}/jobs?${strapiQueryStr}`);
+  const rawJobs = res.data.data;
+
+  const jobs = rawJobs.map((rawJob) => {
+    return jobReducer(rawJob, false);
+  });
+
+  return jobs;
+};
+
+export const searchCompaniesButReturnJobs = async (searchBarText) => {
+  return [];
+  let contentFullQuery = {
+    content_type: 'job',
+    'fields.company.sys.contentType.sys.id': 'company',
+    'fields.company.fields.name[match]': searchBarText,
+
+    // multiple matches are NOT supported by Contentful so we prioritise the company name
+    // 'fields.company.fields.city[match]': searchBarText,
+    // 'fields.company.fields.slogan[match]': searchBarText,
+    // 'fields.company.fields.website[match]': searchBarText,
+    include: 2,
+  };
+  const res = await client.getEntries(contentFullQuery);
+  const foundJobs = res.items;
+
+  const jobs = foundJobs.map((rawJob) => {
+    return jobReducer(rawJob);
+  });
+
+  return jobs;
+};
+
 export async function getJobsSkills() {
   const query = qs.stringify(
     {
@@ -101,12 +191,7 @@ export const getJobsByCompanyId = async ({ id }) => {
           },
         },
       },
-      populate: [
-        'company',
-        'company.logo',
-        'company.coverImage',
-        'skillsTags',
-      ],
+      populate: ['company', 'company.logo', 'company.coverImage', 'skillsTags'],
     },
     {
       encodeValuesOnly: true,

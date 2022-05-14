@@ -1,4 +1,5 @@
 import date from 'date-and-time';
+import { marked } from 'marked';
 
 const assetsBaseUrl = process.env.STRAPI_API_BASE_URL.replace('/api', '');
 
@@ -8,8 +9,7 @@ export const dateReducer = (dateStr) => {
 };
 
 export const richTextReducer = (rawRichtext) => {
-  return rawRichtext;
-  const parsedRichText = documentToHtmlString(rawRichtext);
+  const parsedRichText = marked.parse(rawRichtext);
   let styledRichText = parsedRichText.replace(
     '<ul>',
     "<ul style='list-style-type: circle;'>"
