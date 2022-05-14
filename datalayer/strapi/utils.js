@@ -36,19 +36,14 @@ export const companyReducer = (rawCompany) => {
   return company;
 };
 
-export const tagsReducer = (tagsField) => {
+export const skillsReducer = (tagsField) => {
+  if (!tagsField) return [];
   let tags = [];
-  tagsField.map((rawTag) => {
-    const tag = rawTag.sys.id;
+  tagsField.data.map((rawTag) => {
+    const tag = rawTag.attributes.name;
     tags.push(tag);
   });
   return tags;
-};
-
-export const skillsReducer = (parsedTags) => {
-  const skillTags = parsedTags.filter((tag) => tag.includes('skill.'));
-  const skills = skillTags.map((skillTag) => skillTag.replace('skill.', ''));
-  return skills;
 };
 
 export const jobReducer = (rawJob, parseRelatedJobs = true) => {
@@ -61,8 +56,7 @@ export const jobReducer = (rawJob, parseRelatedJobs = true) => {
   job.remunerationPackage = richTextReducer(job.remunerationPackage);
   job.jobResponsibilities = richTextReducer(job.jobResponsibilities);
   job.jobDescription = richTextReducer(job.jobDescription);
-  //   job.tags = tagsReducer(rawJob.metadata.tags);
-  //   job.skills = skillsReducer(job.tags);
+  job.skills = skillsReducer(job.skillsTags);
 
   const relatedJobs = job.relatedJobs || [];
 
