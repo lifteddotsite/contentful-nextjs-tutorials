@@ -7,7 +7,12 @@ const apiUrl = process.env.STRAPI_API_BASE_URL;
 export const getJobs = async () => {
   const query = qs.stringify(
     {
-      populate: ['company', 'company.logo', 'company.coverImage', 'skillsTags'],
+      populate: [
+        'company',
+        'company.logo',
+        'company.coverImage',
+        'skillsTags',
+      ],
     },
     {
       encodeValuesOnly: true,
@@ -24,7 +29,12 @@ export const getJobs = async () => {
 
 export const searchJobs = async (query) => {
   const strapiQuery = {
-    populate: ['company', 'company.logo', 'company.coverImage', 'skillsTags'],
+    populate: [
+      'company',
+      'company.logo',
+      'company.coverImage',
+      'skillsTags',
+    ],
     filters: {},
   };
 
@@ -91,25 +101,6 @@ export const searchJobs = async (query) => {
 
 export const searchCompaniesButReturnJobs = async (searchBarText) => {
   return [];
-  let contentFullQuery = {
-    content_type: 'job',
-    'fields.company.sys.contentType.sys.id': 'company',
-    'fields.company.fields.name[match]': searchBarText,
-
-    // multiple matches are NOT supported by Contentful so we prioritise the company name
-    // 'fields.company.fields.city[match]': searchBarText,
-    // 'fields.company.fields.slogan[match]': searchBarText,
-    // 'fields.company.fields.website[match]': searchBarText,
-    include: 2,
-  };
-  const res = await client.getEntries(contentFullQuery);
-  const foundJobs = res.items;
-
-  const jobs = foundJobs.map((rawJob) => {
-    return jobReducer(rawJob);
-  });
-
-  return jobs;
 };
 
 export async function getJobsSkills() {
@@ -191,7 +182,12 @@ export const getJobsByCompanyId = async ({ id }) => {
           },
         },
       },
-      populate: ['company', 'company.logo', 'company.coverImage', 'skillsTags'],
+      populate: [
+        'company',
+        'company.logo',
+        'company.coverImage',
+        'skillsTags',
+      ],
     },
     {
       encodeValuesOnly: true,
