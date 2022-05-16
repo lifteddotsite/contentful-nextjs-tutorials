@@ -1,10 +1,6 @@
 import CompanyDetails from '../../components/data/details/CompanyDetails';
 import LoadingSpinner from '../../components/ui/LoadingSpinner';
-import {
-  getCompaniesSlugs,
-  getJobsByCompanyId,
-  getCompanyBySlug,
-} from '../../datalayer';
+import datasource from '../../datalayer';
 
 const CompanyPage = ({ company, companyJobs }) => {
   if (!company)
@@ -16,8 +12,8 @@ export default CompanyPage;
 
 export const getStaticProps = async ({ params }) => {
   const slug = params.slug;
-  const company = await getCompanyBySlug({ slug });
-  const companyJobs = await getJobsByCompanyId({ id: company.id });
+  const company = await datasource.getCompanyBySlug({ slug });
+  const companyJobs = await datasource.getJobsByCompanyId({ id: company.id });
 
   if (!company) {
     return {
@@ -38,7 +34,7 @@ export const getStaticProps = async ({ params }) => {
 };
 
 export const getStaticPaths = async () => {
-  const slugs = await getCompaniesSlugs();
+  const slugs = await datasource.getCompaniesSlugs();
   const paths = slugs.map((slug) => ({ params: { slug } }));
   return {
     paths,

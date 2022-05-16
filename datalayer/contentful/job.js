@@ -58,7 +58,7 @@ export const getJobsByCompanyId = async ({ id }) => {
   return jobs;
 };
 
-export const searchJobs = async (query) => {
+const _searchJobs = async (query) => {
   let contentFullQuery = {
     content_type: 'job',
     include: 2,
@@ -114,7 +114,7 @@ export const searchJobs = async (query) => {
   return filteredJobs;
 };
 
-export const searchCompaniesButReturnJobs = async (searchBarText) => {
+const _searchCompaniesButReturnJobs = async (searchBarText) => {
   let contentFullQuery = {
     content_type: 'job',
     'fields.company.sys.contentType.sys.id': 'company',
@@ -134,4 +134,25 @@ export const searchCompaniesButReturnJobs = async (searchBarText) => {
   });
 
   return jobs;
+};
+
+export const searchJobs = async (query) => {
+   // search in the jobs entities
+   const jobs1 = await _searchJobs(query);
+
+   // seatch in the job entities by company name
+   let jobs2 = [];
+   if (query.searchBarText) {
+     jobs2 = await _searchCompaniesButReturnJobs(query.searchBarText);
+   }
+ 
+   // merge the two results
+   let jobs1Ids = jobs1.map((job) => job.id);
+   jobs2.map((job2) => {
+     if (!jobs1Ids.includes(job2.id)) {
+       jobs1.push(job2);
+     }
+   });
+ 
+   return jobs1;
 };
