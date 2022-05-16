@@ -99,10 +99,6 @@ export const searchJobs = async (query) => {
   return jobs;
 };
 
-export const searchCompaniesButReturnJobs = async (searchBarText) => {
-  return [];
-};
-
 export async function getJobsSkills() {
   const query = qs.stringify(
     {
