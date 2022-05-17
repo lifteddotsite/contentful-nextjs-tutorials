@@ -1,5 +1,5 @@
 import { FaYoutube, FaTwitter, FaGithub, FaLinkedin } from 'react-icons/fa';
-import LiftedWPLogo from '../../public/images/logo-symbolic-main-512.png';
+import LiftedLogo from '../../public/images/logo-symbolic-main-512.png';
 import Image from 'next/image';
 
 const navigation = {
@@ -11,18 +11,18 @@ const navigation = {
     },
     {
       name: 'Twitter',
-      href: 'https://twitter.com/LiftedWp',
+      href: 'https://twitter.com/lifteddotsite',
       icon: (props) => <FaTwitter />,
     },
     {
       name: 'GitHub',
-      href: 'https://github.com/liftedwp/',
+      href: 'https://github.com/lifteddotsite/',
       icon: (props) => <FaGithub />,
     },
 
     {
       name: 'LinkedIn',
-      href: 'https://linkedin.com/company/liftedwp',
+      href: 'https://linkedin.com/company/lifteddotsite',
       icon: (props) => <FaLinkedin />,
     },
   ],
@@ -33,7 +33,7 @@ const footerData = {
     "I hope you find this demo project helpful. If you ever need my services on a similar project, I'd love to help!",
 
   followMessage: 'Follow me on social media for more tutorial like this.',
-  callToActionURL: 'https://liftedwp.com/contact',
+  callToActionURL: 'https://lifted.site/contact',
   callToActionMessage: 'Click here to book a call with me.',
 };
 
@@ -64,7 +64,7 @@ export default function Footer() {
           >
             {footerData.callToActionMessage} <br />
             <Image
-              src={LiftedWPLogo}
+              src={LiftedLogo}
               height={60}
               width={60}
               alt={`LiftedWP - Headless Commerce & CMS Experts.`}
