@@ -1,5 +1,5 @@
 import qs from 'qs';
-import axios from 'axios';
+import axios from './client';
 import { companyReducer } from './utils';
 
 const apiUrl = process.env.STRAPI_API_BASE_URL;
